@@ -1,68 +1,20 @@
-# Ekstrak
-Ekstraksi adalah tahap pertama dalam proses ETL (Extract, Transform, Load). Tahap ini berfungsi untuk menarik data dari berbagai sumber, baik dari sistem database, file flat seperti CSV, API, hingga data streaming.
+# Transform
+Transformasi adalah tahap kedua dalam proses ETL (Extract, Transform, Load) di mana data mentah yang sudah diekstraksi diolah dan dimodifikasi agar sesuai dengan kebutuhan analisis atau penyimpanan. Proses transformasi ini bertujuan untuk membersihkan, memperkaya, dan menggabungkan data sehingga siap untuk dimuat ke dalam sistem penyimpanan akhir atau digunakan dalam analisis lebih lanjut.
 
-## Proses Ekstrak
-#### 1. File CSV, Excel
-```
-import pandas as pd
+## Tujuan Transformasi
+#### 1.Data Cleaning
+Menghapus atau memperbaiki data yang tidak lengkap atau inkonsisten.
 
-df_military_expenditure = pd.read_csv('Military Expenditure.csv')
-df_military_expenditure = pd.read_excel('Military Expenditure.xls')
-```
+#### 2.Data Integration
+Menggabungkan data dari beberapa sumber menjadi satu.
 
-#### 2. MySQL
-```
-import pymysql
-import pandas as pd
+#### 3.Data Reduction 
+Mereduksi dimensi (awalnya 100 variabel menjadi 10 variabel)
 
-HOST = 'xxx'
-PORT = 'xxx'
-USER = 'xxx'
-PASS = 'xxx'
-DB = 'xxx'
+#### 4.Data Normalization
+Mengubah data ke format yang seragam
 
-connMySQL = pymysql.connect(
-    host=HOST,
-    port=int(PORT),
-    user=USER,
-    passwd=PASS,
-    db=DB,
-    charset='utf8mb4'
-)
 
-def getData(conn):
-    query = """
-    SELECT * FROM military_expenditure
-    """
-    df = pd.read_sql_query(query,conn)
-    
-    return df
-
-df = getData(connMySQL)
-```
-
-#### 3. MongoDB
-```
-from pymongo import MongoClient
-import pandas as pd
-# setup koneksi
-connMongoDB = MongoClient(
-            host = HOST,
-            port = int(PORT), 
-            serverSelectionTimeoutMS = 3000,
-            username=USER,
-            password=PASS
-        )
-db = connMongoDB.warehouse #nama database = warehouse
-collection = db.military_expenditure  
-# filter data
-query = {}
-
-hasil_query = collection.find(query)
-# mengumpulkan data menjadi satu json
-ls_dokumen = []
-
-for dokumen in hasil_query:
-    ls_dokumen.append(dokumen)
-ls_dokumen
-```
+## Bahan Belajar
+- Materi 1: https://github.com/arofiqimaulana/Course-Python-For-Data-Analysis 
+- Materi 2: https://github.com/arofiqimaulana/Data-Mining/tree/master/Data%20Preprocessing 
